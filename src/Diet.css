@@ -1,0 +1,48 @@
+.Diet_container {
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Diet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.Meal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.dishes {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: black;
+}
+.Meal_heading {
+  height: 100%;
+  width: 30%;
+}
+.Meal_heading h2 {
+  text-align: right;
+}
+span {
+  width: auto;
+  border-radius: 30px;
+  padding: 5px;
+  background-color: grey;
+  margin: 5px;
+}
