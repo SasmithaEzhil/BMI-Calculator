@@ -1,74 +1,90 @@
 import { useState } from "react";
 import "./App.css";
+import { Link } from "react-router-dom";
 
 function App() {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
-  const [bmi, setBmi] =  useState(null);
-  const [bmiStatus, setBmiStatus] =  useState("");
-  const [errorMessage, seterrorMessage] =  useState("");
+  const [bmi, setBmi] = useState(null);
+  const [bmiStatus, setBmiStatus] = useState("");
+  const [errorMessage, seterrorMessage] = useState("");
 
   const calculateBmi = () => {
     const isValidHeight = /^\d+$/.test(height);
     const isValidWeight = /^\d+$/.test(weight);
-    if(isValidHeight && isValidWeight){
+    if (isValidHeight && isValidWeight) {
       const heightInMeters = height / 100;
-      const bmiValue = weight / (heightInMeters*heightInMeters);
+      const bmiValue = weight / (heightInMeters * heightInMeters);
       setBmi(bmiValue.toFixed(2));
-      if (bmiValue < 18.5){
+      if (bmiValue < 18.5) {
         setBmiStatus("Underweight");
-  
-      }
-      else if(bmiValue>=18.5 && bmiValue<24.9){
+      } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
         setBmiStatus("Normal weight");
-  
-      }
-      else if(bmiValue>=25 && bmiValue<29.9){
+      } else if (bmiValue >= 25 && bmiValue < 29.9) {
         setBmiStatus("Overweight");
-  
-      }
-      else{
-       
+      } else {
         setBmiStatus("Obese");
-
-    }
-    seterrorMessage("");
-  }else{
+      }
+      seterrorMessage("");
+    } else {
       setBmi(null);
       setBmiStatus("");
-      seterrorMessage("Please enter valid numeric values for height and weight.");
+      seterrorMessage(
+        "Please enter valid numeric values for height and weight."
+      );
     }
   };
-  const clearAll =() => {
+  const clearAll = () => {
     setHeight("");
     setWeight("");
     setBmi(null);
     setBmiStatus("");
-  }
+  };
   return (
     <>
       <div className="bmi-calculator">
-        <div className="box"></div> 
+        <div className="box"></div>
         <div className="data">
           <h1>BMI Calculator</h1>
           {errorMessage && <p className="error">{errorMessage}</p>}
           <div className="input-container">
             <label htmlFor="height">Height (cm):</label>
-            <input type="text" value={height} id="height" onChange={(e)=>setHeight(e.target.value)} />
+            <input
+              type="text"
+              value={height}
+              id="height"
+              onChange={(e) => setHeight(e.target.value)}
+            />
           </div>
           <div className="input-container">
             <label htmlFor="weight">Weight (kg):</label>
-            <input type="text" value={weight} id="weight" onChange={(e)=>setWeight(e.target.value)} />
+            <input
+              type="text"
+              value={weight}
+              id="weight"
+              onChange={(e) => setWeight(e.target.value)}
+            />
           </div>
           <button onClick={calculateBmi}>Calculate BMI</button>
           <button onClick={clearAll}>Clear</button>
-          {bmi!== null && (
+          {bmi !== null && (
             <div className="result">
               <p>Your BMI is: {bmi} </p>
               <p>Status: {bmiStatus}</p>
+              <Link className="bmi_buttons" to="/Diet-Plan" state={bmiStatus}>
+                <button>Diet Plan</button>
+              </Link>
+
+              <Link
+                className="bmi_buttons"
+                to="/Workout-Plan"
+                state={bmiStatus}
+              >
+                <button>Workout Plan</button>
+              </Link>
             </div>
           )}
-       </div>
+        </div>
       </div>
     </>
   );
